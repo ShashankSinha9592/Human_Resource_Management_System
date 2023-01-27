@@ -2,14 +2,16 @@ package ManagementUseCase;
 
 import Bins.Employee;
 import Colors.ColorString;
+import Exceptions.EmployeeException;
 import Interface.Intr;
 import Interface.IntrImpl;
 import UseCases.Main;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class EmployeeUseCase {
-    public static void main(int id) {
+    public static void main(int id){
         Scanner sc = new Scanner(System.in);
 
         while (true){
@@ -26,41 +28,79 @@ public class EmployeeUseCase {
             if(n==1){
 
                 Intr dao = new IntrImpl();
-                System.out.println(dao.getEmployeeDetailsById(id));
+                try {
+                    System.out.println(dao.getEmployeeDetailsById(id));
+                } catch (EmployeeException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                } catch (SQLException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                }
             }
             else if(n==2){
                 Intr dao = new IntrImpl();
 
                 System.out.println("Please enter your new password");
                 String password = sc.next();
-                dao.changePassword(id,password);
+                try {
+                    dao.changePassword(id,password);
+                } catch (EmployeeException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                } catch (SQLException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                }
             }
             else if(n==3){
                 System.out.println("Enter new email : ");
                 String email = sc.next();
                 Intr dao = new IntrImpl();
-                dao.changeEmail(id, email);
+                try {
+                    dao.changeEmail(id, email);
+                } catch (EmployeeException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                } catch (SQLException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                }
             }
             else if(n==4){
                 Intr dao = new IntrImpl();
-                dao.requestForLeave(id);
+                try {
+                    dao.requestForLeave(id);
+                } catch (EmployeeException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                } catch (SQLException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                }
             }
             else if(n==5){
                 Intr dao = new IntrImpl();
-                Employee emp = dao.getEmployeeDetailsById(id);
-                if(emp.getEmpLeave().equals("pending")){
-                    System.out.println(ColorString.TEXT_BRIGHT_CYAN+"Pending"+ColorString.TEXT_RESET);
+                Employee emp = null;
+                try {
+                    emp = dao.getEmployeeDetailsById(id);
+                    if(emp.getEmpLeave().equals("pending")){
+                        System.out.println(ColorString.TEXT_BRIGHT_CYAN+"Pending"+ColorString.TEXT_RESET);
+                    }
+                    else if(emp.getEmpLeave().equals("Accepted")){
+                        System.out.println(ColorString.TEXT_BRIGHT_GREEN+emp.getEmpLeave()+ColorString.TEXT_RESET);
+                    }
+                    else{
+                        System.out.println(ColorString.TEXT_BRIGHT_RED+emp.getEmpLeave()+ColorString.TEXT_RESET);
+                    }
+                } catch (EmployeeException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                } catch (SQLException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
                 }
-                else if(emp.getEmpLeave().equals("Accepted")){
-                    System.out.println(ColorString.TEXT_BRIGHT_GREEN+emp.getEmpLeave()+ColorString.TEXT_RESET);
-                }
-                else{
-                    System.out.println(ColorString.TEXT_BRIGHT_RED+emp.getEmpLeave()+ColorString.TEXT_RESET);
-                }
+
             }
             else if(n==6){
                 String[] args = {"Hello", "World"};
-                Main.main(args);
+                try {
+                    Main.main(args);
+                } catch (EmployeeException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                } catch (SQLException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
+                }
                 break;
             }
             else{

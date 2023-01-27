@@ -2,39 +2,41 @@ package Interface;
 
 import Bins.Department;
 import Bins.Employee;
+import Exceptions.AdminException;
 import Exceptions.DepartmentException;
 import Exceptions.EmployeeException;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Intr {
 
 //   ############# for admin ################
 
-    public void registerNewEmployee(String ename,  String email, String password,int deptid ) ;
+    public void registerNewEmployee(String ename,  String email, String password,int deptid ) throws EmployeeException, DepartmentException, SQLException;
 
-    public void addNewDepartment(String dname, String location);
+    public void addNewDepartment(String dname, String location) throws SQLException, DepartmentException;
 
-    public void transferEmployeeToDepartment(int eid, int did) ;
+    public void transferEmployeeToDepartment(int eid, int did) throws EmployeeException, DepartmentException, SQLException;
 
     public void grantLeaveRequest();
 
-    public Employee getEmployeeDetailsById(int eid);
+    public Employee getEmployeeDetailsById(int eid) throws EmployeeException, SQLException;
 
-    public List<Department> getAllDepartmentDetails();
+    public List<Department> getAllDepartmentDetails() throws DepartmentException, SQLException;
 
-    public List<Employee> getAllEmployeeDetails();
+    public List<Employee> getAllEmployeeDetails() throws EmployeeException, SQLException;
 
 //    ####### for employee ############
 
-    public void changePassword(int id , String password);
+    public void changePassword(int id , String password) throws EmployeeException, SQLException;
 
-    public void changeEmail(int id, String email);
+    public void changeEmail(int id, String email) throws EmployeeException, SQLException;
 
-    public void requestForLeave(int id);
+    public void requestForLeave(int id) throws EmployeeException, SQLException;
 
-    public int loginEmployee(String email , String password);
+    public int loginEmployee(String email , String password) throws Exception;
 
-    public boolean adminLogin(String email, String password);
+    public boolean adminLogin(String email, String password) throws AdminException;
 
 }

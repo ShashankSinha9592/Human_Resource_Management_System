@@ -21,21 +21,16 @@ public class ConnectionProvider {
 
 
     public static Connection getConnection(){
-        Connection conn = null;
-        try{
-            Class.forName(driver);
 
-        }catch (ClassNotFoundException e){
-            System.out.println(e.getMessage());
-        }
 
-        try{
-             conn = DriverManager.getConnection(url, username,password);
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
         }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return conn;
+        return connection;
+
 
     }
 }

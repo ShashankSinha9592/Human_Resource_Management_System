@@ -3,16 +3,19 @@ package UseCases;
 import Bins.Department;
 import Bins.Employee;
 import Colors.ColorString;
+import Exceptions.AdminException;
+import Exceptions.EmployeeException;
 import Interface.Intr;
 import Interface.IntrImpl;
 import ManagementUseCase.AdminUseCase;
 import ManagementUseCase.EmployeeUseCase;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws EmployeeException, SQLException {
         Scanner sc = new Scanner(System.in);
 
         while(true){
@@ -30,10 +33,16 @@ public class Main {
                 System.out.println("Enter your password : ");
                 String password = sc.next();
                 Intr dao = new IntrImpl();
-                int id = dao.loginEmployee(email,password);
-                if(id>0){
-                    EmployeeUseCase.main(id);
+
+                try {
+                    int id = dao.loginEmployee(email,password);
+                    if(id>0){
+                        EmployeeUseCase.main(id);
+                    }
+                } catch (Exception e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
                 }
+
 
 
             }
@@ -44,11 +53,11 @@ public class Main {
                 String email = sc.next();
                 System.out.println("please enter password");
                 String password = sc.next();
-                if(dao.adminLogin(email,password)==true){
+                try {
+                    dao.adminLogin(email,password);
                     AdminUseCase.main();
-                }
-                else{
-                    System.out.println(ColorString.TEXT_RED+"Invalid email or password"+ColorString.TEXT_RESET);
+                } catch (AdminException e) {
+                    System.out.println(ColorString.TEXT_BRIGHT_RED+e.getMessage()+ColorString.TEXT_RESET);
                 }
             }
             else if(n==3){

@@ -2,7 +2,7 @@ package Exceptions;
 
 public class DepartmentException extends Exception{
     DepartmentException(){}
-    DepartmentException(String message){
+    public DepartmentException(String message){
         super(message);
     }
 }
