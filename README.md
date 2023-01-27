@@ -12,5 +12,15 @@
 <p>Admin email : admin@123.com</p>
 <p>Admin password : admin</p>
 
+<h3> To Run this application first create a database in my sql</h3>
+<p>Change db.password and db.username in DBdetail.properties file according to ur mysql username and password </p>
+
+<h2>Next follow these steps in your mysql and copy paste these queries</h2>
+<p>1) create database humanresource;</p>
+<p>2) use humanresource;</p>
+<p>3) create table Department(did int PRIMARY KEY AUTO_INCREMENT, dname varchar(20), location varchar(20));</p>
+<p>4) create table Employee(eid int PRIMARY KEY AUTO_INCREMENT, ename varchar(20), email varchar(50) not null, password varchar(15) not null, deptid int , empLeave varchar(15) , FOREIGN KEY(deptid) REFERENCES Department(did));</p>
+
+<h3>Now go to the usecase folder and run the application from main file </h3>
 
 
