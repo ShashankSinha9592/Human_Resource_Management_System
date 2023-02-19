@@ -2,11 +2,13 @@
 <h2>This is a human resource management system where admin can manage everything between employees and departments</h3>
 
 <h3>Database Schema<h3/>
-<img src = "Presentation_Image/Screenshot (35).png">
+![Screenshot (35)](https://user-images.githubusercontent.com/102857782/219963167-31f3495d-0439-4b4f-93d3-004d732f2923.png)
+
 
 
 <h3>Work Flow diagram <h3/>
-<img src = "Presentation_Image/Presentation_Img.png">
+
+![Presentation_Img](https://user-images.githubusercontent.com/102857782/219963184-83259c11-ca94-45fc-91f6-56dfa98f9c0d.png)
 
 <h3>Admin login details are hardcoded <h3/>
 <p>Admin email : admin@123.com</p>
